@@ -194,7 +194,7 @@
      <x>0</x>
      <y>0</y>
      <width>791</width>
-     <height>23</height>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menufile">
@@ -208,6 +208,8 @@
      <string>settings</string>
     </property>
     <addaction name="actionenable_tracking_of_current_time_slider"/>
+    <addaction name="separator"/>
+    <addaction name="actionenable_time_appending"/>
    </widget>
    <addaction name="menufile"/>
    <addaction name="menusettings"/>
@@ -227,6 +229,22 @@
    </property>
    <property name="text">
     <string>enable tracking of current time slider</string>
+   </property>
+  </action>
+  <action name="actionenable">
+   <property name="text">
+    <string>enable</string>
+   </property>
+  </action>
+  <action name="actionenable_time_appending">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>enable time appending</string>
    </property>
   </action>
  </widget>

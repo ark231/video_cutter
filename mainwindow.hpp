@@ -42,9 +42,12 @@ class MainWindow : public QMainWindow {
 
     void change_curent_time_slider_tracking_state(bool state);
 
+    void change_time_appending_is_enabled(bool state);
+
    private:
     Ui::MainWindow *ui;  // NOLINT(readability-identifier-naming)
     QMediaPlayer player_;
     QAudioOutput audio_output_;
+    bool time_appending_is_enabled_ = true;
 };
 #endif  // MAINWINDOW_H

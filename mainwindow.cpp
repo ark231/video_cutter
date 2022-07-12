@@ -4,6 +4,7 @@
 #include <fmt/core.h>
 
 #include <QApplication>
+#include <QChar>
 #include <QDebug>
 #include <QDir>
 #include <QFile>
@@ -13,6 +14,7 @@
 #include <QMediaMetaData>
 #include <QMessageBox>
 #include <QProcess>
+#include <QRegularExpression>
 #include <QStandardPaths>
 #include <QStringList>
 #include <QUrl>
@@ -79,6 +81,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     });
     connect(ui->actionenable_tracking_of_current_time_slider, &QAction::triggered, this,
             &MainWindow::change_curent_time_slider_tracking_state);
+    connect(ui->actionenable_time_appending, &QAction::triggered, this, &MainWindow::change_time_appending_is_enabled);
 }
 
 MainWindow::~MainWindow() { delete ui; }
@@ -201,6 +204,14 @@ void MainWindow::show_videoerror(QMediaPlayer::Error, const QString &error_strin
 
 void MainWindow::save_result() {
     auto source_filename = player_.source().fileName();
+    if (time_appending_is_enabled_) {
+        QTime range_offset = ui->timeEdit_start_time->time();
+        source_filename = source_filename.replace(QRegularExpression(R"((\d{4}(\.\d\d){2} - \d\d(\.\d\d){3}))"),
+                                                  QStringLiteral(R"(\1+%1.%2.%3)")
+                                                      .arg(range_offset.hour(), 2, 10, QChar('0'))
+                                                      .arg(range_offset.minute(), 2, 10, QChar('0'))
+                                                      .arg(range_offset.second(), 2, 10, QChar('0')));
+    }
     bool confirmed = false;
     QString save_filename;
     auto source_filepath = player_.source().toLocalFile();
@@ -258,3 +269,5 @@ void MainWindow::save_result() {
 void MainWindow::change_curent_time_slider_tracking_state(bool state) {
     ui->horizontalSlider_current_pos->setTracking(state);
 }
+
+void MainWindow::change_time_appending_is_enabled(bool state) { this->time_appending_is_enabled_ = state; }
