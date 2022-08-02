@@ -54,15 +54,17 @@ void ProcessWidget::update_label_on_finish(int exit_code, QProcess::ExitStatus e
 void ProcessWidget::wait_for_finished(QDeadlineTimer deadline) { thread_.wait(deadline); }
 void ProcessWidget::update_stdout() {
     process_.setReadChannel(QProcess::StandardOutput);
-    while (process_.canReadLine()) {
-        ui->textEdit_stdout->append(QString(process_.readLine(0xffffffff)).remove('\n'));
-    }
+    auto cursor = ui->textEdit_stdout->textCursor();
+    ui->textEdit_stdout->moveCursor(QTextCursor::End);
+    ui->textEdit_stdout->insertPlainText(process_.readAll());
+    ui->textEdit_stdout->setTextCursor(cursor);
 }
 void ProcessWidget::update_stderr() {
     process_.setReadChannel(QProcess::StandardError);
-    while (process_.canReadLine()) {
-        ui->textEdit_stderr->append(QString(process_.readLine(0xffffffff)).remove('\n'));
-    }
+    auto cursor = ui->textEdit_stderr->textCursor();
+    ui->textEdit_stderr->moveCursor(QTextCursor::End);
+    ui->textEdit_stderr->insertPlainText(process_.readAll());
+    ui->textEdit_stderr->setTextCursor(cursor);
 }
 void ProcessWidget::kill_process() {
     emit sigkill();  // this call blocks
