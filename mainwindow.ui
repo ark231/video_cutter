@@ -11,10 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>video cutter</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="main_resouces.qrc">
+   <iconset resource="main_resources.qrc">
     <normaloff>:/res/image/app_icon.ico</normaloff>:/res/image/app_icon.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
