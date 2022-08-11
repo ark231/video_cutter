@@ -26,6 +26,8 @@ set(PROJECT_SOURCES
     processwidget.cpp
     processwidget.ui
     ${TS_FILES}
+    main_resources.qrc
+    $<$<PLATFORM_ID:Windows>:windows.rc>
 )
 
 qt_add_executable(video_cutter

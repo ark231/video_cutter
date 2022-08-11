@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>video cutter</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="main_resources.qrc">
+    <normaloff>:/res/image/app_icon.ico</normaloff>:/res/image/app_icon.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -121,7 +125,7 @@
            <enum>QDateTimeEdit::HourSection</enum>
           </property>
           <property name="displayFormat">
-           <string>H:mm:ss</string>
+           <string>H:mm:ss.zzz</string>
           </property>
           <property name="time">
            <time>
@@ -129,6 +133,13 @@
             <minute>0</minute>
             <second>0</second>
            </time>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -151,7 +162,7 @@
            <enum>QDateTimeEdit::HourSection</enum>
           </property>
           <property name="displayFormat">
-           <string>H:mm:ss</string>
+           <string>H:mm:ss.zzz</string>
           </property>
           <property name="time">
            <time>
@@ -159,6 +170,20 @@
             <minute>0</minute>
             <second>0</second>
            </time>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_set_to_end">
+          <property name="text">
+           <string>set to end</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="Line" name="line_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -194,7 +219,7 @@
      <x>0</x>
      <y>0</y>
      <width>791</width>
-     <height>23</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menufile">
@@ -202,12 +227,15 @@
      <string>file</string>
     </property>
     <addaction name="actionopen"/>
+    <addaction name="actionclose"/>
    </widget>
    <widget class="QMenu" name="menusettings">
     <property name="title">
      <string>settings</string>
     </property>
     <addaction name="actionenable_tracking_of_current_time_slider"/>
+    <addaction name="separator"/>
+    <addaction name="actionsavefile_name_plugin"/>
    </widget>
    <addaction name="menufile"/>
    <addaction name="menusettings"/>
@@ -229,6 +257,27 @@
     <string>enable tracking of current time slider</string>
    </property>
   </action>
+  <action name="actionenable">
+   <property name="text">
+    <string>enable</string>
+   </property>
+  </action>
+  <action name="actionsavefile_name_plugin">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>savefile name plugin</string>
+   </property>
+  </action>
+  <action name="actionclose">
+   <property name="text">
+    <string>close</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
@@ -244,6 +293,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="main_resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
