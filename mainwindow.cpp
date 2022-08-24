@@ -303,15 +303,19 @@ void MainWindow::confirm_save_filename_(QString default_save_filename) {
     cut_video_(save_filepath);
 }
 void MainWindow::cut_video_(QString save_filepath) {
-    using std::chrono::seconds;
-    seconds range_start(ui->rangeSlider_selected->GetLowerValue());
-    seconds range_end(ui->rangeSlider_selected->GetUpperValue());
+    auto range_start = ui->timeEdit_start_time->time();
+    auto range_end = ui->timeEdit_end_time->time();
     auto source_filepath = player_.source().toLocalFile();
-    QStringList arguments{"-ss",        QString::number(range_start.count()),
-                          "-to",        QString::number(range_end.count()),
-                          "-i",         source_filepath,
-                          "-c",         "copy",
-                          save_filepath};
+    QStringList arguments;
+    // clang-format off
+    arguments << "-ss" << range_start.toString("hh:mm:ss.zzz");
+    if (range_end.msecsSinceStartOfDay() != player_.duration()) {
+        arguments << "-to" << range_end.toString("hh:mm:ss.zzz");
+    }
+    arguments << "-i"  << source_filepath
+              << "-c"  << "copy"
+              << save_filepath;
+    // clang-format on
     process_->start("ffmpeg", arguments);
 }
 
