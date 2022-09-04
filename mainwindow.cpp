@@ -302,6 +302,25 @@ void MainWindow::confirm_save_filename_(QString default_save_filename) {
     } while (save_filename.isEmpty());
     cut_video_(save_filepath);
 }
+namespace impl_ {
+int decode_ffmpeg(QStringView, QStringView new_stderr) {
+    QRegularExpression time_pattern(R"(time=(?<hours>\d\d):(?<minutes>\d\d):(?<seconds>\d\d).(?<centiseconds>\d\d))");
+    auto match = time_pattern.match(new_stderr);
+    if (not match.hasMatch()) {
+        return -1;
+    }
+    using std::chrono::duration_cast;
+    using std::chrono::hours;
+    using std::chrono::minutes;
+    using std::chrono::seconds;
+    using centiseconds = std::chrono::duration<int, std::centi>;
+    using std::chrono::milliseconds;
+    return duration_cast<milliseconds>(
+               hours(match.captured("hours").toInt()) + minutes(match.captured("minutes").toInt()) +
+               seconds(match.captured("seconds").toInt()) + centiseconds(match.captured("centiseconds").toInt()))
+        .count();
+}
+}  // namespace impl_
 void MainWindow::cut_video_(QString save_filepath) {
     auto range_start = ui->timeEdit_start_time->time();
     auto range_end = ui->timeEdit_end_time->time();
@@ -316,7 +335,8 @@ void MainWindow::cut_video_(QString save_filepath) {
               << "-c"  << "copy"
               << save_filepath;
     // clang-format on
-    process_->start("ffmpeg", arguments);
+    process_->start("ffmpeg", arguments, true,
+                    {0, (range_end.msecsSinceStartOfDay() - range_start.msecsSinceStartOfDay()), impl_::decode_ffmpeg});
 }
 
 void MainWindow::change_curent_time_slider_tracking_state_(bool state) {
