@@ -67,6 +67,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         ui->timeEdit_end_time->setTime(QTime::fromMSecsSinceStartOfDay(this->player_.duration()));
         ui->rangeSlider_selected->setUpperValue(ui->rangeSlider_selected->GetMaximun());
     });
+    connect(ui->pushButton_end_set_to_current, &QPushButton::clicked,
+            [=] { ui->timeEdit_end_time->setTime(ui->timeEdit_current_time->time()); });
+    connect(ui->pushButton_start_set_to_current, &QPushButton::clicked,
+            [=] { ui->timeEdit_start_time->setTime(ui->timeEdit_current_time->time()); });
     connect(ui->actionopen, &QAction::triggered, this, &MainWindow::open_video_);
     connect(ui->actionclose, &QAction::triggered, this, &MainWindow::close_video_);
     connect(ui->pushButton_save, &QPushButton::pressed, this, &MainWindow::save_result_);
@@ -305,6 +309,11 @@ void MainWindow::confirm_save_filename_(QString default_save_filename) {
             break;
         }
     } while (save_filename.isEmpty());
+    if (overwrite) {
+        // TODO: add things needed for overwriting file (e.g. delete existing file)
+        QMessageBox::critical(nullptr, "not implemented error", "file overwriting is not implemented");
+        return;
+    }
     cut_video_(save_filepath);
 }
 namespace impl_ {

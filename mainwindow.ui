@@ -143,6 +143,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="pushButton_start_set_to_current">
+          <property name="text">
+           <string>set to current</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="Line" name="line">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -179,6 +186,13 @@
             <minute>0</minute>
             <second>0</second>
            </time>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_end_set_to_current">
+          <property name="text">
+           <string>set to current</string>
           </property>
          </widget>
         </item>
