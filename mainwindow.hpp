@@ -28,8 +28,9 @@ class MainWindow : public QMainWindow {
    private slots:
     void play_pause_button_pressed_();
 
-    void change_video_position_(std::chrono::seconds newposition);
-    void update_video_position_display_(std::chrono::seconds newposition);
+    void update_current_pos_and_slider_(QTime time);
+    void change_video_position_(std::chrono::milliseconds newposition);
+    void update_video_position_display_(std::chrono::milliseconds newposition);
     void update_video_position_slider_(std::chrono::seconds newposition);
 
     void update_start_time_display_(std::chrono::seconds time);

@@ -45,11 +45,14 @@
         </item>
         <item>
          <widget class="QTimeEdit" name="timeEdit_current_time">
+          <property name="accelerated">
+           <bool>true</bool>
+          </property>
           <property name="currentSection">
            <enum>QDateTimeEdit::HourSection</enum>
           </property>
           <property name="displayFormat">
-           <string>H:mm:ss</string>
+           <string>H:mm:ss.zzz</string>
           </property>
           <property name="time">
            <time>
@@ -121,6 +124,9 @@
         </item>
         <item>
          <widget class="QTimeEdit" name="timeEdit_start_time">
+          <property name="accelerated">
+           <bool>true</bool>
+          </property>
           <property name="currentSection">
            <enum>QDateTimeEdit::HourSection</enum>
           </property>
@@ -158,6 +164,9 @@
         </item>
         <item>
          <widget class="QTimeEdit" name="timeEdit_end_time">
+          <property name="accelerated">
+           <bool>true</bool>
+          </property>
           <property name="currentSection">
            <enum>QDateTimeEdit::HourSection</enum>
           </property>
