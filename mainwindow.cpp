@@ -199,8 +199,9 @@ void MainWindow::open_video_() {
     auto videodirs = QStandardPaths::standardLocations(QStandardPaths::MoviesLocation);
     qDebug() << videodirs;
     qDebug() << QUrl(videodirs.isEmpty() ? QUrl() : QUrl(QDir(videodirs[0]).path()));
-    auto fileurl = QFileDialog::getOpenFileName(this, tr("open video file"), videodirs.isEmpty() ? "" : videodirs[0]);
-    if (fileurl != "") {
+    auto fileurl = QFileDialog::getOpenFileUrl(this, tr("open video file"),
+                                               videodirs.isEmpty() ? QUrl() : QUrl::fromLocalFile(videodirs[0]));
+    if (fileurl != QUrl()) {
         player_.setSource(fileurl);
         ui->pushButton_save->setEnabled(true);
         ui->pushButton_play_pause->setText(tr("play"));
