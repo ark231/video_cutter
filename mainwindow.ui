@@ -259,6 +259,7 @@
     <addaction name="actionenable_tracking_of_current_time_slider"/>
     <addaction name="separator"/>
     <addaction name="actionsavefile_name_plugin"/>
+    <addaction name="actionvalid_period_of_video_directory_cache"/>
    </widget>
    <addaction name="menufile"/>
    <addaction name="menusettings"/>
@@ -299,6 +300,11 @@
   <action name="actionclose">
    <property name="text">
     <string>close</string>
+   </property>
+  </action>
+  <action name="actionvalid_period_of_video_directory_cache">
+   <property name="text">
+    <string>valid period of video directory cache</string>
    </property>
   </action>
  </widget>

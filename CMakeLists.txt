@@ -25,6 +25,9 @@ set(PROJECT_SOURCES
     processwidget.hpp
     processwidget.cpp
     processwidget.ui
+    timedialog.hpp
+    timedialog.cpp
+    timedialog.ui
     ${TS_FILES}
     main_resources.qrc
     $<$<PLATFORM_ID:Windows>:windows.rc>

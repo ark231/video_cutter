@@ -7,6 +7,7 @@
 #include <QSettings>
 #include <QString>
 #include <QStringList>
+#include <QUrl>
 #include <chrono>
 #include <optional>
 
@@ -25,7 +26,7 @@ class MainWindow : public QMainWindow {
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-   private slots:
+   private:
     void play_pause_button_pressed_();
 
     void update_current_pos_and_slider_(QTime time);
@@ -38,6 +39,10 @@ class MainWindow : public QMainWindow {
 
     void update_end_time_display_(std::chrono::seconds time);
     void update_end_time_slider_(std::chrono::seconds time);
+
+    QUrl read_video_dir_cache_();
+    void write_video_dir_cache_(QUrl dir);
+    void update_valid_period_of_cache_();
 
     void open_video_();
     void close_video_();
